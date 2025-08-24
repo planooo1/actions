@@ -9,7 +9,7 @@ inputs:
     required: true
 
   github-token:
-    description: 'GitHub token for ghcr authentication (pass from caller: ${{ secrets.GITHUB_TOKEN }})'
+    description: 'GitHub token for ghcr authentication'
     required: false
     default: ''
 
