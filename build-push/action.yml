@@ -8,6 +8,11 @@ inputs:
     description: 'The Dockerhub Token'
     required: true
 
+  github-token:
+    description: 'GitHub token for ghcr authentication (pass from caller: ${{ secrets.GITHUB_TOKEN }})'
+    required: false
+    default: ''
+
   github-registry-push:
     description: 'Flag to push to github registry'
     required: false
@@ -174,9 +179,9 @@ runs:
       if: ${{ inputs.github-registry-push == 'true' }}
       uses: docker/login-action@v3
       with:
-        registry: ghcr.io
-        username: ${{ github.repository_owner }}
-        password: ${{ secrets.GITHUB_TOKEN }}
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ inputs.github-token }}
 
     - name: Login to Private Registry
       if: ${{ inputs.private-registry-push == 'true' }}
